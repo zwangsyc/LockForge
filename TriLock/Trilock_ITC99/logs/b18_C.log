@@ -1,0 +1,26 @@
+=== TriLock State Re-encoding: SCC classes AFTER re-encoding ===
+O-SCC (#=0):
+E-SCC (#=6):
+  E: ['EXTRA_R2']
+  E: ['EXTRA_R4']
+  E: ['EXTRA_R3']
+  E: ['EXTRA_R5']
+  E: ['EXTRA_R0']
+  E: ['EXTRA_R1']
+M-SCC (#=0):
+
+=== TriLock ES/EF Validation ===
+{
+  "PIs": 3357,
+  "KEY_PIs": 0,
+  "POs": 3343,
+  "DFFs": 6,
+  "extra_inserted": 6,
+  "reencoded_pairs": 0,
+  "ks": 3,
+  "kf": 3,
+  "alpha": 0.3,
+  "correct_key_FC": 0.0,
+  "wrong_key_avg_FC": 0.0033333333333333335
+}
+Keyed locked bench written to: ./Trilock_ITC99//b18_C_trilock_keyed.bench

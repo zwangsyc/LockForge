@@ -1,0 +1,38 @@
+=== TriLock State Re-encoding: SCC classes AFTER re-encoding ===
+O-SCC (#=12):
+  O: ['G41']
+  O: ['G42']
+  O: ['G39']
+  O: ['G44']
+  O: ['G45']
+  O: ['G46']
+  O: ['G40']
+  O: ['G36']
+  O: ['G43']
+  O: ['G37']
+  O: ['G35']
+  O: ['G38']
+E-SCC (#=0):
+M-SCC (#=6):
+  M: ['EXTRA_R5', 'G34']
+  M: ['EXTRA_R4', 'G33']
+  M: ['EXTRA_R1', 'G30']
+  M: ['EXTRA_R3', 'G32']
+  M: ['EXTRA_R2', 'G31']
+  M: ['EXTRA_R0', 'G29']
+
+=== TriLock ES/EF Validation ===
+{
+  "PIs": 14,
+  "KEY_PIs": 0,
+  "POs": 14,
+  "DFFs": 24,
+  "extra_inserted": 6,
+  "reencoded_pairs": 6,
+  "ks": 3,
+  "kf": 3,
+  "alpha": 0.3,
+  "correct_key_FC": 0.0,
+  "wrong_key_avg_FC": 0.0025
+}
+Keyed locked bench written to: ./Trilock_ISCAS89//s1196_trilock_keyed.bench

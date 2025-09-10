@@ -1,0 +1,53 @@
+B_checks:
+  - id: B1
+    desc: "Seq. correct-key equivalence"
+    method: "seq_equivalence"
+    pass_if: "equiv_holds_within(@thresholds.equiv_timeout_s)"
+
+  - id: B2
+    desc: "Temporal ES triggers only on DIP sequence"
+    method: "dip_sequence_check"
+    params: {kappa: "paper_seq_len"}
+    pass_if: "ES==1 iff DIP_κ observed; resets on mismatch"
+
+  - id: B3
+    desc: "Wrong-key corruption ≥ tau"
+    method: "random_sim_wrong_keys"
+    params: {tau: "@thresholds.corruption_tau", patterns: "@sim.patterns"}
+    pass_if: "mean_hamming(outputs_wrong, outputs_golden) >= tau"
+
+  - id: B4
+    desc: "Phase/mod-k gating semantics"
+    method: "phase_gating_assertions"
+    pass_if: "EF/ES gating invariants hold across phases"
+
+
+C_requirements:
+  - key: "temporal_error_signal"
+  - key: "dip_sequence_fsm"
+  - key: "phase_gating"
+  - key: "tunable_EF"
+
+S_components:
+  - key: "fsm_state_count"       ; omega: 0.5
+    check: "state_count >= kappa+2 (incl. reset/idle)"
+  - key: "ES_reaches_outputs"    ; omega: 0.5
+    check: "temporal ES fans out to corruption/restore gates"
+  - key: "phase_muxing_present"  ; omega: 0.5
+    check: "phase gating mux between ES/EF paths"
+  - key: "reset_on_mismatch_wiring" ; omega: 0.5
+    check: "FSM mismatch transitions go to reset/idle from all active states"
+
+R_criteria:
+  cmd: "python run_trilock.py --bench {bench} --dip {dip_json} --key {key_json}"
+  success_log_regex: "TRILOCK RUN OK"
+
+P_penalties:
+  - key: "no_temporal_ES"              ; severity: 3
+    trigger: "temporal error signal not detected anywhere"
+  - key: "no_phase_gating"             ; severity: 2
+    trigger: "phase-gating mux/logic absent or removed"
+  - key: "temporal_ES_unconnected"     ; severity: 1
+    trigger: "temporal ES exists but does not reach corruption/restore path"
+  - key: "phase_gating_incomplete"     ; severity: 1
+    trigger: "phase gating present but not driven or bypassed"

@@ -1,0 +1,46 @@
+B_checks:
+  - id: B1
+    desc: "Correct-key equivalence to golden"
+    method: "miter_equivalence"
+    applies: ["comb"]
+    pass_if: "no_counterexample"
+  - id: B2
+    desc: "Wrong-key corruption ≥ tau on N patterns"
+    method: "random_sim_wrong_keys"
+    params: {tau: "@thresholds.corruption_tau", patterns: "@sim.patterns"}
+    pass_if: "mean_hamming(outputs_wrong, outputs_golden) >= tau"
+
+C_requirements:
+  - key: "rename_then_wrap"
+    desc: "Signal renaming followed by wrapper insertion per SARO"
+  - key: "tt_partition_transforms"
+    desc: "Truth-table partition transforms applied (T1/T2/T3 family)"
+  - key: "signature_preservation"
+    desc: "Functional signature preserved under correct key"
+  - key: "key_gating_policy"
+    desc: "Key gates placed per SARO placement rules"
+
+S_components:
+  - key: "rename_map_present"           ; 
+    check: "rename_map.json or module present and referenced by wrapper"
+  - key: "wrapper_module_present"       ; 
+    check: "wrapper surrounds renamed signals (netlist graph containment)"
+  - key: "T3_transform_applied"         ; 
+    check: "pattern of T3 operator detected on targeted partitions"
+  - key: "key_gate_placement_respects_policy" ; 
+    check: "all key gates lie on allowed cut-nets per SARO policy"
+
+R_criteria:
+  cmd: "python run_saro.py --bench {bench} --key {key_json}"
+  success_log_regex: "SARO RUN OK"
+  notes: "Minor path/env tweaks allowed if documented."
+
+P_penalties:
+  - key: "missing_rename_map"     ; severity: 3
+    trigger: "no rename map or inoperative mapping"
+  - key: "no_wrapper_module"      ; severity: 3
+    trigger: "wrapper not present or not connected"
+  - key: "no_T3_transform"        ; severity: 2
+    trigger: "T3 transform absent when required"
+  - key: "placement_policy_violation" ; severity: 1
+    trigger: "key gates violate SARO placement policy"

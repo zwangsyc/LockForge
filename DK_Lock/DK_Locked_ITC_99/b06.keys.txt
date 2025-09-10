@@ -1,0 +1,7 @@
+[DK-Lock] Wrote: ./DK_Locked_ITC_99/ITC_99//Users/IT-17775/Documents/Codes/LLM_Harpoon/Benchmarks/ITC_99/b06_DK_Locked.bench
+[DK-Lock] Picked outputs: CC_MUX_REG_1_, USCITE_REG_2_, ACKOUT_REG, ENABLE_COUNT_REG, USCITE_REG_1_, CC_MUX_REG_2_
+[DK-Lock] Polarity: XOR, XNOR, XOR, XOR, XOR, XOR
+[DK-Lock] Correct activation key: 1010001000
+[DK-Lock] Correct functional key (used pins): 010000
+[DK-Lock] Padded functional key (N bits): 0100000000
+[DK-Lock] m cycles: 9

@@ -1,0 +1,6 @@
+[DK-Lock] Wrote: ./DK_Locked_ITC_99/ITC_99//Users/IT-17775/Documents/Codes/LLM_Harpoon/Benchmarks/ITC_99/b14_DK_Locked.bench
+[DK-Lock] Picked outputs: ADDR_REG_9_, DATAO_REG_21_, ADDR_REG_18_, DATAO_REG_2_, ADDR_REG_7_, DATAO_REG_22_, DATAO_REG_27_, DATAO_REG_29_, ADDR_REG_0_, DATAO_REG_19_
+[DK-Lock] Polarity: XOR, XOR, XOR, XNOR, XNOR, XNOR, XNOR, XNOR, XOR, XOR
+[DK-Lock] Correct activation key: 1010001000
+[DK-Lock] Correct functional key : 0001111100
+[DK-Lock] m cycles: 9

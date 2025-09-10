@@ -1,0 +1,77 @@
+=== TriLock State Re-encoding: SCC classes AFTER re-encoding ===
+O-SCC (#=56):
+  O: ['DATAO_REG_20_']
+  O: ['DATAO_REG_19_']
+  O: ['DATAO_REG_22_']
+  O: ['DATAO_REG_28_']
+  O: ['DATAO_REG_23_']
+  O: ['DATAO_REG_21_']
+  O: ['ADDR_REG_17_']
+  O: ['DATAO_REG_18_']
+  O: ['DATAO_REG_24_']
+  O: ['DATAO_REG_27_']
+  O: ['DATAO_REG_29_']
+  O: ['DATAO_REG_26_']
+  O: ['DATAO_REG_25_']
+  O: ['ADDR_REG_19_']
+  O: ['ADDR_REG_18_']
+  O: ['ADDR_REG_16_']
+  O: ['ADDR_REG_10_']
+  O: ['DATAO_REG_11_']
+  O: ['DATAO_REG_16_']
+  O: ['ADDR_REG_14_']
+  O: ['ADDR_REG_15_']
+  O: ['DATAO_REG_15_']
+  O: ['DATAO_REG_17_']
+  O: ['DATAO_REG_8_']
+  O: ['DATAO_REG_6_']
+  O: ['DATAO_REG_9_']
+  O: ['ADDR_REG_4_']
+  O: ['ADDR_REG_6_']
+  O: ['DATAO_REG_10_']
+  O: ['ADDR_REG_8_']
+  O: ['ADDR_REG_9_']
+  O: ['ADDR_REG_11_']
+  O: ['DATAO_REG_13_']
+  O: ['DATAO_REG_12_']
+  O: ['ADDR_REG_12_']
+  O: ['DATAO_REG_14_']
+  O: ['ADDR_REG_13_']
+  O: ['DATAO_REG_5_']
+  O: ['ADDR_REG_2_']
+  O: ['DATAO_REG_7_']
+  O: ['ADDR_REG_7_']
+  O: ['DATAO_REG_1_']
+  O: ['ADDR_REG_3_']
+  O: ['ADDR_REG_5_']
+  O: ['DATAO_REG_2_']
+  O: ['DATAO_REG_3_']
+  O: ['DATAO_REG_4_']
+  O: ['DATAO_REG_0_']
+  O: ['ADDR_REG_1_']
+  O: ['ADDR_REG_0_']
+  O: ['DATAO_REG_30_']
+  O: ['DATAO_REG_31_']
+  O: ['B_REG', 'D_REG_0_', 'D_REG_10_', 'D_REG_11_', 'D_REG_12_', 'D_REG_13_', 'D_REG_14_', 'D_REG_15_', 'D_REG_16_', 'D_REG_17_', 'D_REG_18_', 'D_REG_19_', 'D_REG_1_', 'D_REG_20_', 'D_REG_21_', 'D_REG_22_', 'D_REG_23_', 'D_REG_24_', 'D_REG_25_', 'D_REG_26_', 'D_REG_27_', 'D_REG_28_', 'D_REG_29_', 'D_REG_2_', 'D_REG_30_', 'D_REG_31_', 'D_REG_3_', 'D_REG_4_', 'D_REG_5_', 'D_REG_6_', 'D_REG_7_', 'D_REG_8_', 'D_REG_9_', 'REG0_REG_0_', 'REG0_REG_10_', 'REG0_REG_11_', 'REG0_REG_12_', 'REG0_REG_13_', 'REG0_REG_14_', 'REG0_REG_15_', 'REG0_REG_16_', 'REG0_REG_17_', 'REG0_REG_18_', 'REG0_REG_19_', 'REG0_REG_1_', 'REG0_REG_20_', 'REG0_REG_21_', 'REG0_REG_22_', 'REG0_REG_23_', 'REG0_REG_24_', 'REG0_REG_25_', 'REG0_REG_26_', 'REG0_REG_27_', 'REG0_REG_28_', 'REG0_REG_29_', 'REG0_REG_2_', 'REG0_REG_30_', 'REG0_REG_31_', 'REG0_REG_3_', 'REG0_REG_4_', 'REG0_REG_5_', 'REG0_REG_6_', 'REG0_REG_7_', 'REG0_REG_8_', 'REG0_REG_9_', 'REG1_REG_0_', 'REG1_REG_10_', 'REG1_REG_11_', 'REG1_REG_12_', 'REG1_REG_13_', 'REG1_REG_14_', 'REG1_REG_15_', 'REG1_REG_16_', 'REG1_REG_17_', 'REG1_REG_18_', 'REG1_REG_19_', 'REG1_REG_1_', 'REG1_REG_20_', 'REG1_REG_21_', 'REG1_REG_22_', 'REG1_REG_23_', 'REG1_REG_24_', 'REG1_REG_25_', 'REG1_REG_26_', 'REG1_REG_27_', 'REG1_REG_28_', 'REG1_REG_29_', 'REG1_REG_2_', 'REG1_REG_30_', 'REG1_REG_31_', 'REG1_REG_3_', 'REG1_REG_4_', 'REG1_REG_5_', 'REG1_REG_6_', 'REG1_REG_7_', 'REG1_REG_8_', 'REG1_REG_9_', 'REG2_REG_0_', 'REG2_REG_10_', 'REG2_REG_11_', 'REG2_REG_12_', 'REG2_REG_13_', 'REG2_REG_14_', 'REG2_REG_15_', 'REG2_REG_16_', 'REG2_REG_17_', 'REG2_REG_18_', 'REG2_REG_19_', 'REG2_REG_1_', 'REG2_REG_20_', 'REG2_REG_21_', 'REG2_REG_22_', 'REG2_REG_23_', 'REG2_REG_24_', 'REG2_REG_25_', 'REG2_REG_26_', 'REG2_REG_27_', 'REG2_REG_28_', 'REG2_REG_29_', 'REG2_REG_2_', 'REG2_REG_30_', 'REG2_REG_31_', 'REG2_REG_3_', 'REG2_REG_4_', 'REG2_REG_5_', 'REG2_REG_6_', 'REG2_REG_7_', 'REG2_REG_8_', 'REG2_REG_9_', 'REG3_REG_0_', 'REG3_REG_10_', 'REG3_REG_11_', 'REG3_REG_12_', 'REG3_REG_13_', 'REG3_REG_14_', 'REG3_REG_15_', 'REG3_REG_16_', 'REG3_REG_17_', 'REG3_REG_18_', 'REG3_REG_19_', 'REG3_REG_1_', 'REG3_REG_20_', 'REG3_REG_21_', 'REG3_REG_22_', 'REG3_REG_23_', 'REG3_REG_24_', 'REG3_REG_25_', 'REG3_REG_26_', 'REG3_REG_27_', 'REG3_REG_28_', 'REG3_REG_2_', 'REG3_REG_3_', 'REG3_REG_4_', 'REG3_REG_5_', 'REG3_REG_6_', 'REG3_REG_7_', 'REG3_REG_8_', 'REG3_REG_9_']
+  O: ['RD_REG']
+  O: ['WR_REG']
+  O: ['STATE_REG']
+E-SCC (#=0):
+M-SCC (#=1):
+  M: ['EXTRA_R0', 'EXTRA_R1', 'EXTRA_R2', 'EXTRA_R3', 'EXTRA_R4', 'EXTRA_R5', 'IR_REG_0_', 'IR_REG_10_', 'IR_REG_11_', 'IR_REG_12_', 'IR_REG_13_', 'IR_REG_14_', 'IR_REG_15_', 'IR_REG_16_', 'IR_REG_17_', 'IR_REG_18_', 'IR_REG_19_', 'IR_REG_1_', 'IR_REG_20_', 'IR_REG_21_', 'IR_REG_22_', 'IR_REG_23_', 'IR_REG_24_', 'IR_REG_25_', 'IR_REG_26_', 'IR_REG_27_', 'IR_REG_28_', 'IR_REG_29_', 'IR_REG_2_', 'IR_REG_30_', 'IR_REG_31_', 'IR_REG_3_', 'IR_REG_4_', 'IR_REG_5_', 'IR_REG_6_', 'IR_REG_7_', 'IR_REG_8_', 'IR_REG_9_']
+
+=== TriLock ES/EF Validation ===
+{
+  "PIs": 32,
+  "KEY_PIs": 0,
+  "POs": 54,
+  "DFFs": 251,
+  "extra_inserted": 6,
+  "reencoded_pairs": 6,
+  "ks": 3,
+  "kf": 3,
+  "alpha": 0.3,
+  "correct_key_FC": 0.0,
+  "wrong_key_avg_FC": 0.0016666666666666668
+}
+Keyed locked bench written to: ./Trilock_ITC99//b14_trilock_keyed.bench

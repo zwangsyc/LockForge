@@ -1,0 +1,48 @@
+
+B_checks:
+  - id: B1
+    desc: "Activation counter advances only on correct activation key"
+    method: "act_phase_check"
+    params: {m_cycles: "paper_m"}
+    pass_if: "counter increments only when act_key==correct"
+
+  - id: B2
+    desc: "Functional phase produces golden behavior with functional key"
+    method: "seq_equivalence"
+    pass_if: "equiv_holds_after_activation"
+
+  - id: B3
+    desc: "Wrong activation key stalls or corrupts"
+    method: "random_sim_wrong_keys"
+    pass_if: "stall_or_corrupt_detected"
+
+  - id: B4
+    desc: "Global enable gated by full key match each cycle"
+    method: "enable_gating_check"
+    pass_if: "functional enable asserted only when full key matches per cycle"
+
+C_requirements:
+  - key: "activation_key_comparator"
+  - key: "cycle_counter_m"
+  - key: "functional_key_path"
+  - key: "corruption_gating"
+
+S_components:
+  - key: "comparator_bitwidth" ; 
+    check: "width(comparator)==act_key_bits"
+  - key: "counter_gating"      ; 
+    check: "counter_en derived from comparator==1"
+  - key: "phase_transition"    ; 
+    check: "activation_done → functional_path_enable"
+
+R_criteria:
+  cmd: "python run_dklock.py --bench {bench} --m {m} --key {key_json}"
+  success_log_regex: "DK-LOCK RUN OK"
+
+P_penalties:
+  - key: "missing_counter"             ; severity: 3
+    trigger: "cycle counter m not implemented"
+  - key: "wrong_phase_logic"           ; severity: 2
+    trigger: "functional/activation phase transition logic incorrect"
+  - key: "activation_len_mismatch"     ; severity: 1
+    trigger: "activation not enforced for m cycles or enable not gated each cycle"

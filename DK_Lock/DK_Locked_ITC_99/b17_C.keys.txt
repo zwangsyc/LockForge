@@ -1,0 +1,6 @@
+[DK-Lock] Wrote: ./DK_Locked_ITC_99/ITC_99//Users/IT-17775/Documents/Codes/LLM_Harpoon/Benchmarks/ITC_99/b17_C_DK_Locked.bench
+[DK-Lock] Picked outputs: P1_U2982, P2_U3211, P2_U3024, P1_U3147, P3_U2915, P1_U3460, P3_U2654, P2_U3112, U235, P1_U2955
+[DK-Lock] Polarity: XNOR, XOR, XNOR, XNOR, XOR, XOR, XNOR, XNOR, XOR, XOR
+[DK-Lock] Correct activation key: 1010001000
+[DK-Lock] Correct functional key : 1011001100
+[DK-Lock] m cycles: 9

@@ -1,0 +1,55 @@
+scheme: "Harpoon"
+B_checks:
+  - id: B1
+    desc: "Unlock after correct authentication sequence"
+    method: "seq_authentication_check"
+    params: {seq_len: "@paper.seq_len"}
+    pass_if: "golden behavior observed only after correct sequence"
+
+  - id: B2
+    desc: "Wrong sequence reaches trap/black-hole"
+    method: "seq_wrong_sequence_check"
+    pass_if: "trap state reached or outputs corrupted for wrong seq"
+
+  - id: B3
+    desc: "Reset-on-mismatch semantics"
+    method: "fsm_reset_check"
+    pass_if: "FSM resets on any symbol mismatch"
+
+  - id: B4
+    desc: "Mode separation enforced"
+    method: "mode_gating_check"
+    pass_if: "distinct obfuscation/authentication modes gate functionality"
+
+
+C_requirements:
+  - key: "auth_fsm"
+    desc: "Authentication FSM present"
+  - key: "trap_states"
+    desc: "Trap/black-hole states defined"
+  - key: "mode_separation"
+    desc: "Separate obfuscation/authentication modes"
+  - key: "reset_on_mismatch"
+    desc: "FSM resets on symbol mismatch"
+
+S_components:
+  - key: "fsm_state_minimum" ; 
+    check: "state_count ≥ seq_len + 1 (incl. reset)"
+  - key: "trap_reachability" ; 
+    check: "wrong symbol transitions eventually reach trap"
+  - key: "mode_gating_present" ; 
+    check: "auth_done → functional_mode enable"
+  - key: "reset_on_mismatch_wiring" ; 
+    check: "mismatch → reset transition exists from all active states"
+
+R_criteria:
+  cmd: "python run_harpoon.py --bench {bench} --seq {seq_json}"
+  success_log_regex: "HARPOON RUN OK"
+
+P_penalties:
+  - key: "no_trap_states"              ; severity: 3
+    trigger: "trap/black-hole states absent or unreachable from wrong sequences"
+  - key: "no_mode_separation"          ; severity: 2
+    trigger: "no distinct obfuscation vs authentication modes"
+  - key: "reset_or_mode_partial"       ; severity: 1
+    trigger: "reset-on-mismatch missing on some transitions or mode gating incomplete"

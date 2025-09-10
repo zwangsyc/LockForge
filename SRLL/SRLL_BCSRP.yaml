@@ -1,0 +1,55 @@
+B_checks:
+  - id: B1
+    desc: "Correct-key equivalence (comb./seq.)"
+    method: "miter_equivalence"
+    pass_if: "no_counterexample"
+
+  - id: B2
+    desc: "Wrong-key corruption ≥ tau"
+    method: "random_sim_wrong_keys"
+    params: {tau: "@thresholds.corruption_tau", patterns: "@sim.patterns"}
+    pass_if: "mean_hamming(outputs_wrong, outputs_golden) >= tau"
+
+  - id: B3
+    desc: "Cut-nets restored under correct key"
+    method: "restore_coverage_check"
+    pass_if: "all cut nets are correctly restored under right key"
+
+  - id: B4
+    desc: "Withholding predicate behaves as specified"
+    method: "withholding_behavior_check"
+    pass_if: "LUT-withholding truth-table keys produce expected masking"
+
+C_requirements:
+  - key: "cut_net_selection"
+  - key: "key_programmable_LUT_or_MUX_restore"
+  - key: "mapping_table"
+  - key: "reconfig_interface"
+
+S_components:
+  - key: "num_locked_nets" ;
+    check: "count(cut_nets) == declared_key_bits"
+
+  - key: "restore_connectivity" ;
+    check: "restore drives all cut_nets"
+
+  - key: "mapping_table_wired" ;
+    check: "mapping table/indexing feeds restore logic and references all cut_nets"
+
+  - key: "no_bypass_under_wrong_key" ;
+    check: "no direct path from cut_nets to outputs that bypasses restore when key is incorrect"
+
+
+R_criteria:
+  cmd: "python run_srll.py --bench {bench} --key {key_json}"
+  success_log_regex: "SRLL RUN OK"
+
+P_penalties:
+  - key: "restore_absent"              ; severity: 3
+    trigger: "no key-programmable LUT/MUX restore unit"
+  - key: "restore_not_connected"       ; severity: 2
+    trigger: "restore unit present but not driving all cut nets/outputs"
+  - key: "withholding_logic_incomplete"; severity: 1
+    trigger: "LUT withholding/mapping present but partial or miswired"
+  - key: "mapping_or_reconfig_missing" ; severity: 1
+    trigger: "mapping table or reconfig interface missing while others present"

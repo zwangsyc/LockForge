@@ -1,0 +1,7 @@
+[DK-Lock] Wrote: ./DK_Locked_ITC_99/ITC_99//Users/IT-17775/Documents/Codes/LLM_Harpoon/Benchmarks/ITC_99/b09_DK_Locked.bench
+[DK-Lock] Picked outputs: Y_REG
+[DK-Lock] Polarity: XOR
+[DK-Lock] Correct activation key: 1010001000
+[DK-Lock] Correct functional key (used pins): 0
+[DK-Lock] Padded functional key (N bits): 0000000000
+[DK-Lock] m cycles: 9

@@ -1,0 +1,59 @@
+B_checks:
+  - id: B1
+    desc: "Correct-key equivalence to golden"
+    method: "miter_equivalence"
+    applies: ["comb","seq"]
+    pass_if: "no_counterexample"
+
+  - id: B2
+    desc: "Wrong-key corruption ≥ tau"
+    method: "random_sim_wrong_keys"
+    params: {tau: "@thresholds.corruption_tau", patterns: "@sim.patterns"}
+    pass_if: "mean_hamming(outputs_wrong, outputs_golden) >= tau"
+
+  - id: B3
+    desc: "Perturb unit is active under wrong keys"
+    method: "perturb_activity_check"
+    pass_if: "designated internal nets/outputs toggle due to perturb under wrong key"
+
+  - id: B4
+    desc: "Restore cancels perturbation under correct key"
+    method: "restore_cancellation_check"
+    pass_if: "with perturb enabled, correct key returns outputs to golden"
+
+  - id: B5
+    desc: "Controller correctly gates perturb/restore paths"
+    method: "controller_toggle_check"
+    pass_if: "toggling controller signals enables/disables perturb/restore as specified"
+
+C_requirements:
+  - key: "perturb_unit"
+    desc: "Perturb unit injects controlled errors"
+  - key: "restore_unit"
+    desc: "Restore unit cancels errors under correct key"
+  - key: "external_signal_entanglement"
+    desc: "Key effects entangled with cone-external signals"
+  - key: "control_logic"
+    desc: "Control logic selects/coordinates perturb/restore paths"
+
+S_components:
+  - key: "restore_connectivity" ; 
+    check: "restore → correction gates → primary outputs"
+  - key: "perturb_to_targets"   ; 
+    check: "perturb → designated internal nets/outputs"
+  - key: "control_logic_present"; 
+    check: "controller/FSM or gating signals present and used"
+  - key: "entanglement_edges"   ; 
+    check: "fan-in from cone-external signals into key/perturb path"
+
+R_criteria:
+  cmd: "python run_entangle.py --bench {bench} --key {key_json}"
+  success_log_regex: "ENTANGLE RUN OK"
+
+P_penalties:
+  - key: "restore_absent"              ; severity: 3
+    trigger: "no restore unit or not connected to outputs anywhere"
+  - key: "no_entanglement"             ; severity: 2
+    trigger: "no cone-external signal entanglement detected"
+  - key: "control_or_restore_partial"  ; severity: 1
+    trigger: "controller wiring incomplete or restore path covers only subset of targets"

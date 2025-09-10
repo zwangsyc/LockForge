@@ -1,0 +1,6 @@
+[DK-Lock] Wrote: ./DK_Locked_ISCAS_89/ISCAS_89/./s13207_DK_Locked.bench
+[DK-Lock] Picked outputs: g5682, g3829, g6301, g1871, g5678, g5729, g3854, g1804, g9314, g4655
+[DK-Lock] Polarity: XNOR, XNOR, XNOR, XOR, XNOR, XNOR, XOR, XOR, XOR, XOR
+[DK-Lock] Correct activation key: 1010001000
+[DK-Lock] Correct functional key : 1110110000
+[DK-Lock] m cycles: 9

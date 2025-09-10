@@ -1,0 +1,47 @@
+scheme: "AutoLock"
+B_checks:
+  - id: B1
+    desc: "Pipeline produces locked netlist"
+    method: "pipeline_completion_check"
+    pass_if: "locked netlist artifact generated"
+  - id: B2
+    desc: "Correct-key equivalence of locked netlist"
+    method: "miter_equivalence"
+    pass_if: "no_counterexample"
+  - id: B3
+    desc: "Wrong-key corruption ≥ tau"
+    method: "random_sim_wrong_keys"
+    params: {tau: "@thresholds.corruption_tau", patterns: "@sim.patterns"}
+    pass_if: "mean_hamming(outputs_wrong, outputs_golden) >= tau"
+
+C_requirements:
+  - key: "genotype_definition"
+    desc: "Candidate/genotype representation defined"
+  - key: "fitness_function"
+    desc: "Fitness combines corruption, overhead, constraints"
+  - key: "search_loop"
+    desc: "Iterative selection/mutation/crossover (or equivalent)"
+  - key: "insertion_operator"
+    desc: "Operator inserts key gates per candidate"
+ 
+S_components:
+  - key: "fitness_module_present" ; 
+    check: "fitness() or equivalent callable used in loop"
+  - key: "search_ops_present" ; 
+    check: "selection/mutation/crossover (or enumerative) present"
+  - key: "locked_gatecount_matches" ; 
+    check: "count(key gates) equals declared budget"
+  - key: "insertion_points_valid" ; 
+    check: "key gates placed on allowed cut nets"
+
+R_criteria:
+  cmd: "python run_autolock.py --bench {bench} --budget {k} --seed {seed}"
+  success_log_regex: "AUTOLOCK RUN OK"
+
+P_penalties:
+  - key: "missing_fitness" ; severity: 3
+    trigger: "no fitness function used"
+  - key: "insertion_flawed" ; severity: 2
+    trigger: "insertion operator absent/incorrect"
+  - key: "budget_violation" ; severity: 1
+    trigger: "key-gate count mismatches budget"

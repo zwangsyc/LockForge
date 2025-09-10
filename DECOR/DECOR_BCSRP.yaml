@@ -1,0 +1,59 @@
+scheme: "DECOR"
+B_checks:
+  - id: B1
+    desc: "Correct-key equivalence to golden"
+    method: "miter_equivalence"
+    applies: ["comb","seq"]
+    pass_if: "no_counterexample"
+
+  - id: B2
+    desc: "Multiple functional keys reproduce golden"
+    method: "multi_key_equivalence"
+    params: {keys: "@artifact.functional_keys"}
+    pass_if: "all keys in set produce golden outputs"
+
+  - id: B3
+    desc: "Wrong-key corruption ≥ tau on protected sets"
+    method: "random_sim_wrong_keys"
+    params: {tau: "@thresholds.corruption_tau", patterns: "@sim.patterns"}
+    pass_if: "mean_hamming(outputs_wrong, outputs_golden) >= tau"
+
+  - id: B4
+    desc: "Membership gates restore dynamically"
+    method: "membership_toggle_check"
+    pass_if: "is_correct toggling enables/disables restore to match golden under correct key"
+
+C_requirements:
+  - key: "udc_cofactor_alteration"
+    desc: "UDC/cofactor alteration performed on designated cones"
+  - key: "membership_is_correct"
+    desc: "Membership predicate is_correct implemented"
+  - key: "multi_key_correctness"
+    desc: "More than one key designated as functionally correct"
+  - key: "restore_network"
+    desc: "Restore logic connects membership to output correction (G/L)"
+
+S_components:
+  - key: "membership_logic_present" ; 
+    check: "is_correct comparator/predicate exists with proper width"
+  - key: "membership_drives_restore" ; 
+    check: "is_correct → restore path → primary outputs"
+  - key: "udc_cofactor_blocks_present" ; 
+    check: "UDC/cofactor operator nodes exist on target nets"
+  - key: "num_functional_keys_gt1" ; 
+    check: "reported functional key set size ≥ 2"
+
+R_criteria:
+  cmd: "python run_decor.py --bench {bench} --keys {keys_json}"
+  success_log_regex: "DECOR RUN OK"
+  notes: "Document any minor synthesis flags or seed changes."
+
+P_penalties:
+  - key: "missing_udc_cofactor" ; severity: 3
+    trigger: "no UDC/cofactor alteration detected"
+  - key: "no_membership_logic"  ; severity: 3
+    trigger: "is_correct predicate absent"
+  - key: "membership_not_connected" ; severity: 2
+    trigger: "membership exists but does not gate restore/output"
+  - key: "only_single_key_correct" ; severity: 1
+    trigger: "functional key set size == 1"

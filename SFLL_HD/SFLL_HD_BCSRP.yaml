@@ -1,0 +1,73 @@
+B_checks:
+  - id: B1
+    desc: "Correct-key equivalence to golden"
+    method: "miter_equivalence"
+    applies: ["comb"]
+    pass_if: "no_counterexample"
+
+  - id: B2
+    desc: "Built-in error present in FSC at protected inputs"
+    method: "protected_set_error_check"
+    params: {k: "@paper.k_bits", h: "@paper.hamming_distance"}
+    pass_if: "exists i in ProtectedSet(k,h): outputs_fsc(i) != outputs_golden(i)"
+
+  - id: B3
+    desc: "Restore cancels error under correct key"
+    method: "restore_cancellation_check"
+    pass_if: "for all i in ProtectedSet(k,h): outputs_locked(i, key=correct) == outputs_golden(i)"
+
+  - id: B4
+    desc: "Wrong-key corruption manifests"
+    method: "wrong_key_perturbation_check"
+    params: {patterns: "@sim.patterns"}
+    pass_if: "mean_hamming(outputs_locked_wrong, outputs_golden) > 0 over sampled patterns"
+
+C_requirements:
+  - key: "hd_checker_present"
+    desc: "Hamming-distance checker (or k-bit comparator for h=0) exists"
+  - key: "functionality_stripping"
+    desc: "FSC modifies original netlist to introduce protected-set error"
+  - key: "restore_unit_xor"
+    desc: "Restore unit drives XOR (or equivalent) to correct outputs"
+  - key: "key_interface_k_bits"
+    desc: "Key interface exposes k bits per paper spec"
+
+S_components:
+  - key: "hd_checker_wiring"
+    check: "XORs from primary inputs with key feed popcount/adder; comparator enforces HD==h (or equality when h=0)"
+  - key: "restore_fanout_to_outputs"
+    check: "Restore signal(s) reach all designated outputs/corruption points"
+  - key: "protected_points_inserted"
+    check: "Flip/corruption points are physically inserted in FSC at intended cones"
+  - key: "no_bypass_paths"
+    check: "No direct path bypasses restore to reproduce golden under wrong key"
+
+R_criteria:
+  cmd: "python run_sfll_hd.py --bench {bench} --k {k} --h {h} --key {key_json}"
+  success_log_regex: "SFLL-HD RUN OK"
+  notes: "Set h=0 to cover TTLock-equivalent case."
+
+P_penalties:
+  - key: "restore_absent"
+    severity: 3
+    trigger: "No restore unit or not connected to outputs"
+
+  - key: "hd_checker_absent"
+    severity: 3
+    trigger: "No Hamming-distance checker/comparator for specified h"
+
+  - key: "no_functionality_stripping"
+    severity: 3
+    trigger: "Locked netlist lacks FSC difference vs original (no protected-set error)"
+
+  - key: "restore_unconnected"
+    severity: 2
+    trigger: "Restore exists but does not reach all targets / left unused"
+
+  - key: "bypass_detected"
+    severity: 2
+    trigger: "Bypass path restores golden behavior under wrong key"
+
+  - key: "hd_condition_incorrect"
+    severity: 1
+    trigger: "Checker compares wrong predicate (e.g., uses ≥h or wrong h)"

@@ -1,0 +1,57 @@
+scheme: "CAS-Lock"
+B_checks:
+  - id: B1
+    desc: "Correct-key equivalence to golden (comb.)"
+    method: "miter_equivalence"
+    applies: ["comb"]
+    pass_if: "no_counterexample"
+  
+- id: B2
+  desc: "Wrong-key corruption ≥ tau on N patterns”
+  method: "y_trigger_sampling"
+  params:
+    tau: "@thresholds.corruption_tau"
+    patterns: "@sim.patterns"        # N
+    delta: 0.01                      # 99% one-sided confidence
+    taps_only: true                  # sample only tapped inputs
+    stratified: true                 # by Hamming weight (else uniform)
+    wrong_keys: 8                    # sample this many wrong keys
+    seed: "@sim.seed"
+  measure: |
+    For each sampled wrong key and pattern, compute Y = g AND g_bar.
+    Let p_hat = mean(Y) over N patterns (Y=1 ⇔ mismatch).
+    LB = wilson_lower_bound(p_hat, N, delta).
+  pass_if: "min_over_wrong_keys(LB) >= tau"
+  on_borderline: "increase patterns and re-test; if still < tau, mark inconclusive (not fail)"
+
+C_requirements:
+  - key: "input_xor_keying"
+    desc: "Primary inputs XNOR/XORed with key bits"
+  - key: "and_cascade"
+    desc: "AND-cascade constructed from keyed inputs"
+  - key: "cascade_drives_corruption"
+    desc: "Cascade output gates selected internal nets"
+  - key: "correct_cascade_wiring"
+    desc: "Cascade depth/fan-in consistent with paper spec"
+
+S_components:
+  - key: "num_key_gates_equals_keybits" ; 
+    check: "count(XOR/XNOR key gates) == declared_key_bits"
+  - key: "cascade_depth_expected"       ; 
+    check: "depth(and_cascade) ∈ [log2(k), k]"
+  - key: "cascade_to_outputs_path"       ; 
+    check: "cascade_out → corruption_muxes → primary_outputs"
+  - key: "no_bypass_under_wrong_key"     ; 
+    check: "no direct path that skips cascade for wrong key"
+
+R_criteria:
+  cmd: "python run_caslock.py --bench {bench} --key {key_json}"
+  success_log_regex: "CAS-LOCK RUN OK"
+
+P_penalties:
+  - key: "missing_cascade"               ; severity: 3
+    trigger: "no AND-cascade detected"
+  - key: "cascade_not_connected"         ; severity: 2
+    trigger: "cascade output not reaching corruption points"
+  - key: "keycount_mismatch"             ; severity: 1
+    trigger: "declared key bits != inserted key gates"

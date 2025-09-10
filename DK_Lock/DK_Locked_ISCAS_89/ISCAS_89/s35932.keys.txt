@@ -1,0 +1,6 @@
+[DK-Lock] Wrote: ./DK_Locked_ISCAS_89/ISCAS_89/./s35932_DK_Locked.bench
+[DK-Lock] Picked outputs: CRC_OUT_9_8, CRC_OUT_4_14, CRC_OUT_9_2, CRC_OUT_9_18, CRC_OUT_2_21, DATA_9_22, CRC_OUT_8_19, CRC_OUT_3_21, DATA_9_23, CRC_OUT_5_16
+[DK-Lock] Polarity: XNOR, XOR, XNOR, XNOR, XNOR, XOR, XOR, XNOR, XNOR, XNOR
+[DK-Lock] Correct activation key: 1010001000
+[DK-Lock] Correct functional key : 1011100111
+[DK-Lock] m cycles: 9

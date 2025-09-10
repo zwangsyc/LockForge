@@ -1,0 +1,6 @@
+[DK-Lock] Wrote: ./DK_Locked_ISCAS_89/ISCAS_89/./s5378_DK_Locked.bench
+[DK-Lock] Picked outputs: n3114gat, n3127gat, n3116gat, n3136gat, n3137gat, n3132gat, n3126gat, n3142gat, n3148gat, n3133gat
+[DK-Lock] Polarity: XNOR, XNOR, XOR, XOR, XOR, XOR, XNOR, XNOR, XNOR, XNOR
+[DK-Lock] Correct activation key: 1010001000
+[DK-Lock] Correct functional key : 1100001111
+[DK-Lock] m cycles: 9
